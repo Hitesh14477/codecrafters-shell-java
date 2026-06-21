@@ -356,11 +356,6 @@ class JobManager {
         tasks.removeAll(finished);
     }
 
-    // builds the listing for ALL current jobs (running and done), as printed by the
-    // `jobs` command;
-    // removes any that are done while we're at it. Used both for direct printing
-    // and for the
-    // builtin-in-a-pipeline case where we need the output as a string.
     static String listJobs(List<BackgroundTask> tasks) {
         StringBuilder result = new StringBuilder();
         List<BackgroundTask> snapshot = new ArrayList<>(tasks);
@@ -402,11 +397,6 @@ class JobManager {
     }
 }
 
-/**
- * Hand-written tokenizer that understands single quotes, double quotes, and
- * backslash escapes
- * (didn't want to pull in a full shell-parsing library just for this).
- */
 class CommandParser {
 
     static List<String> parseCommand(String line) {

@@ -286,18 +286,7 @@ class BackgroundTask {
     }
 }
 
-/**
- * Handles everything to do with background jobs: assigning job numbers,
- * reaping finished tasks at the prompt, and listing jobs for the `jobs`
- * builtin.
- */
 class JobManager {
-
-    // checks whether a process has finished, giving it a brief grace period if it's
-    // in the middle of exiting (e.g. a reader that just received EOF from a
-    // pipe/FIFO
-    // may take a moment to actually terminate after the writer closes). A single
-    // isAlive() check can race with that and report "still running" incorrectly.
     private static boolean hasExited(Process proc) {
         if (!proc.isAlive()) {
             return true;
@@ -498,17 +487,6 @@ class PathResolver {
     }
 }
 
-/**
- * Builtin command helpers: checking whether a name is a builtin, and running a
- * builtin
- * so its output can be captured as a string (needed for builtins acting as one
- * stage of
- * a pipeline, so output can be piped onward). Note: in this shell, pipelines
- * are always
- * delegated wholesale to a real shell (see PipelineRunner), so this is
- * currently unused
- * but kept for parity with the original implementation.
- */
 class Builtins {
 
     // keeping this as static so a builtin running "inside" a pipeline can
